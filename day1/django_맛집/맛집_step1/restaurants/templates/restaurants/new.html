@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>식상 생성 페이지</h1>
+  <form action="{% url "restaurants:create"%}" method = "POST">
+    {% csrf_token %}
+    <p>식당 이름:   <input type="text" name="name"> </p>
+    <p>식당 설명:   <textarea name="description" id=""></textarea> </p>
+    <p>식당 주소:   <textarea name="address" id=""></textarea> </p>
+    <p>식당 전화번호:  <textarea name="phone_number" id=""></textarea> </p>
+    <input type="submit">
+  </form>
+  <a href="{% url "restaurants:index"%}">[BACK]</a>
+
+</body>
+</html>
