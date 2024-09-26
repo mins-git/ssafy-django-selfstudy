@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 이미지 크기 제한 */
+.limited-size {
+  max-width: 300px;
+  max-height: 300px;
+  width: auto;
+  height: auto;
+}

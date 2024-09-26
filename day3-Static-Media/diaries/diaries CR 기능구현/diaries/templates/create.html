@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form action="{% url 'diaries:create' %}" method ="POST" >
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit">
+</form>
+{% comment %} <a href="{% url 'diaries:create' %}">[일기 쓰기]</a>  {% endcomment %}
+{% endblock content %}
