@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% if request.user.is_authenticated %}
+  <p>안녕하세요 {{ user.username }}</p>
+  <a href="{% url "accounts:update" %}">[회원 정보 수정]</a>
+  <a href="{% url "accounts:logout" %}">[로그아웃]</a>
+  
+
+  {% else %}
+  <a href="{% url 'accounts:login' %}">[LOGIN]</a>
+  <a href="{% url 'accounts:signup' %}">[Sign Up]</a>
+
+  {% endif %}
+
+
+  <h1>전체 유저 목록</h1>
+  <ul>
+    {% for person in persons %}
+      <li>{{ person.username }}</li>
+      <hr>
+    {% endfor %}
+  </ul>
+{% endblock content %}
