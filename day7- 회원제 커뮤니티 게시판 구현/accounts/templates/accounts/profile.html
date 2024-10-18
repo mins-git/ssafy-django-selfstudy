@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div>
+    <div>
+        <h2 style="display: inline-block; margin-right: 10px;">{{ person.username }}님의 프로필 페이지</h2>
+        <div style="font-size: smaller; display: inline-block; text-align: right;">
+            <p style="margin: 0;">팔로워: {{ person.followers.count }} / 팔로잉: {{ person.following.count }}</p>
+        </div>
+    </div>
+    <p>회원번호: {{person.pk}}</p>
+    <p>유저이름: {{person.username}}</p>
+    <p>가입날짜: {{person.date_joined}}</p>
+</div>
+</div>
+<hr>
+
+<div>
+    <form action="{% url 'accounts:follow' person.pk %}" method="POST">
+        {% csrf_token %}
+        {% if request.user in person.followers.all %}
+            <button type ="submit"> 언팔 </button>
+        {% else %}
+            {% if request.user != person %}
+                <button type="submit">팔로우</button>
+            {% else %}
+                <button disabled>자기 자신</button>
+            {% endif %}
+        {% endif %}
+
+    </form>
+</div>
+
+<div>
+    <h2>{{person.username}}님이 쓴 글</h2>
+    {% for board in person.board_set.all %}
+    <div class="col-md-4 mb-4">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title">글 제목: {{ board.title }}</h5>
+                <p class="card-text">글 번호: {{ board.pk }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<hr>
+
+<div>
+    <h2>{{person.username}}님이 쓴 댓글</h2>
+    {% for comment in person.comment_set.all %}
+    <div class="col-md-4 mb-4">
+        <div class="card bg-light">
+            <div class="card-body">
+                <h5 class="card-title">글 제목: {{ comment.title }}</h5>
+                <p class="card-text">글 번호: {{ comment.comment_pk }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<hr>
+<div>
+    <h2>팔로워</h2>
+    <ul>
+        {% for follower in person.followers.all %}
+            <li>{{ follower.username }}</li>
+        {% empty %}
+            <li>팔로워가 없습니다.</li>
+        {% endfor %}
+    </ul>
+</div>
+<hr>
+{% endblock content %}
